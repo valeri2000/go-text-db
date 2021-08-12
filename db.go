@@ -57,6 +57,18 @@ func (db *Database) Get(id string) (interface{}, bool) {
 	return value, ok
 }
 
+func (db *Database) GetAll() ([]interface{}, error) {
+	var resData []interface{}
+	for _, value := range db.data {
+		resData = append(resData, value)
+	}
+	return resData, nil
+}
+
+func (db *Database) GetCount() int {
+	return len(db.data)
+}
+
 func (db *Database) Put(id string, value interface{}) error {
 	if value == nil {
 		_, ok := db.data[id]
