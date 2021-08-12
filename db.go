@@ -58,6 +58,14 @@ func (db *Database) Get(id string) (interface{}, bool) {
 }
 
 func (db *Database) Put(id string, value interface{}) error {
+	if value == nil {
+		_, ok := db.data[id]
+		if ok {
+			delete(db.data, id)
+		}
+		return nil
+	}
+
 	db.data[id] = value
 
 	byteValue, err := json.Marshal(db.data)
